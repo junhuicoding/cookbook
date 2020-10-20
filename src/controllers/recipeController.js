@@ -1,5 +1,5 @@
 const db = require("../models");
-const Recipe = db.recipe;
+const Recipe = db.recipes;
 
 // Create and Save a new Recipe
 exports.create = (req, res) => {
@@ -16,7 +16,7 @@ exports.create = (req, res) => {
         ingredients: req.body.ingredients,
         steps: req.body.steps,
         tags: req.body.tags,
-        cooked: req.body.cooked ? req.body.cooked : false
+        favourite: req.body.favourite ? req.body.favourite : false
     });
 
     // Save Recipe in the database
@@ -33,12 +33,44 @@ exports.create = (req, res) => {
         });
 };
 
-// Retrieve all Recipes from the database.
+// Retrieve all Recipes from the database. Optional parameter with Name
 exports.findAll = (req, res) => {
-    const name = req.query.title;
-    var condition = name ? { title: { $regex: new RegExp(name), $options: "i" } } : {};
+    const name = req.query.name;
+    var condition = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
 
     Recipe.find(condition)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving recipes."
+            });
+        });
+};
+
+// Retrieve all Recipes with corresponding tag from the database.
+exports.findAllByTag = (req, res) => {
+    const tag = req.query.tag;
+
+    Recipe.find({ tags: tag })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving recipes."
+            });
+        });
+};
+
+// Retrieve all Recipes with corresponding ingredient from the database.
+exports.findAllByIngredient = (req, res) => {
+    const ingredient = req.query.ingredient.toString();
+
+    Recipe.find({ ingredients: ingredient })
         .then(data => {
             res.send(data);
         })
@@ -88,6 +120,27 @@ exports.update = (req, res) => {
         });
 };
 
+// // Update a Recipe by the id in the request
+// exports.updateFavourite = (req, res) => {
+//     const id = req.params.id;
+//     const favourite = req.params.favourite ? req.body.favourite : false
+//     const originalFavourite = Recipe.findById(id).select("favourite");
+
+//     Recipe.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+//         .then(data => {
+//             if (!data) {
+//                 res.status(404).send({
+//                     message: "Cannot update Recipe with id=${id}. Maybe Recipe ID is invalid!"
+//                 });
+//             } else res.send({ message: "Recipe was updated successfully." });
+//         })
+//         .catch(err => {
+//             res.status(500).send({
+//                 message: "Error updating Recipe with id=" + id
+//             });
+//         });
+// };
+
 // Delete a Recipe with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
@@ -127,9 +180,9 @@ exports.deleteAll = (req, res) => {
         });
 };
 
-// Find all published Recipes
+// Find all favourited Recipes
 exports.findAllFavourites = (req, res) => {
-    Recipe.find({ published: true })
+    Recipe.find({ favourite: true })
         .then(data => {
             res.send(data);
         })
