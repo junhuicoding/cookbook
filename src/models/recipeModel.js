@@ -6,7 +6,7 @@ module.exports = mongoose => {
           ingredients: [String],
           steps: [String],
           tags: [String],
-          published: Boolean
+          favourite: Boolean
         },
         { timestamps: true }
     );
