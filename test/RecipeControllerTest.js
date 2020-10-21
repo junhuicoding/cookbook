@@ -10,13 +10,13 @@ chai.should();
 
 describe('API Tests', function() {
     this.timeout(5000);
-    before(function() {
-        console.log('start test');
-    });
+    // before(function() {
+    //     console.log('start test');
+    // });
 
-    after(function() {
-        // app.shutDown();
-    });
+    // after(function() {
+    //     // app.shutDown();
+    // });
 
     describe('Add recipe', function() {
         it('should add recipe', (done) => {
