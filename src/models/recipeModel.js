@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-invalid-this */
 module.exports = (mongoose) => {
     const schema = new mongoose.Schema(
         {
@@ -13,7 +15,6 @@ module.exports = (mongoose) => {
 
 
     schema.method('toJSON', function() {
-        // eslint-disable-next-line no-invalid-this
         const {__v, _id, ...object} = this.toObject();
         object.id = _id;
         return object;
