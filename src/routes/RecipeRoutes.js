@@ -1,7 +1,7 @@
 const express = require('express');
 
 module.exports = (app) => {
-    const recipes = require('../controllers/RecipeController');
+    const recipes = require('../controllers/RecipeController.js');
 
     const router = new express.Router();
 

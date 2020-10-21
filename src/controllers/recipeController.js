@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-const db = require('../models');
+const db = require('../models/index.js');
 const Recipe = db.recipes;
 
 // Create and Save a new Recipe
