@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
 
-require('./src/routes/RecipeRoutes')(app);
+require('./src/routes/RecipeRoutes.js')(app);
 
 // set port, listen for requests
 const PORT = config.PORT;
@@ -26,7 +26,7 @@ app.listen(PORT, () => {
 });
 
 
-const db = require('./src/models');
+const db = require('./src/models/index.js');
 db.mongoose
     .connect(config.DBHost, {
         useNewUrlParser: true,
