@@ -37,7 +37,6 @@ exports.create = (req, res) => {
                      'Some error occurred while creating the Recipe.',
             });
         });
-        console.log('returning from controller');
 };
 
 // Retrieve all Recipes from the database. Optional parameter with Name
