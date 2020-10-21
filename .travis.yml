@@ -1,5 +1,6 @@
 os: windows
-services: mongodb
+services: 
+  - mongodb
 language: node_js
 node_js:
   - 12
