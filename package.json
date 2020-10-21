@@ -4,7 +4,7 @@
   "description": "A simple cookbook application to store some of your favourite dishes",
   "main": "server.js",
   "scripts": {
-    "start": "SET NODE_ENV=dev",
+    "start": "node server.js",
     "test": "mocha --exit"
   },
   "keywords": [
