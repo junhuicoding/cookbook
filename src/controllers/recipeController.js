@@ -10,6 +10,7 @@ exports.create = (req, res) => {
         res.status(400).send({message: 'Name can not be empty!'});
         return;
     }
+    console.log('post ok');
 
     // Create a Recipe
     const recipe = new Recipe({
@@ -20,11 +21,13 @@ exports.create = (req, res) => {
         tags: req.body.tags,
         favourite: req.body.favourite ? req.body.favourite : false,
     });
+    console.log('recipe created');
 
     // Save Recipe in the database
     recipe
         .save(recipe)
         .then((data) => {
+            console.log('save ok');
             res.send(data);
         })
         .catch((err) => {
@@ -34,6 +37,7 @@ exports.create = (req, res) => {
                      'Some error occurred while creating the Recipe.',
             });
         });
+        console.log('returning from controller');
 };
 
 // Retrieve all Recipes from the database. Optional parameter with Name
