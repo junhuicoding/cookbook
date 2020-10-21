@@ -1,53 +1,80 @@
-/* eslint-disable no-unused-vars */
-const dbConfig = require('../src/config/db.config.js');
+// During the test the env variable is set to test
+process.env.NODE_ENV = 'test';
 
-const mongoose = require('mongoose');
+const app = require('../server.js');
 const chai = require('chai');
-const expect = chai.expect;
-const db = {};
-db.mongoose = mongoose;
-db.url = dbConfig.url;
-db.recipes = require('../src/models/RecipeModel.js')(mongoose);
-const Recipe = db.recipes;
+const chaiHttp = require('chai-http');
+
+chai.use(chaiHttp);
+chai.should();
 
 describe('API Tests', function() {
     before(function() {
+        console.log('start test');
+    });
 
+    after(function() {
+        // app.shutDown();
+    });
+
+    describe('Add recipe', function() {
+        it('should add recipe', (done) => {
+            const mockRecipe1 = {
+                'name': 'test 1',
+                'description': 'This is dish test 1',
+                'ingredients': [],
+                'steps': [],
+                'tags': ['easy to cook'],
+                'favourite': true
+            };
+            chai.request(app)
+                .post('/api/recipes')
+                .send(mockRecipe1)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
+                });
+        });
     });
 
     describe('get', function() {
         context('test', function() {
-            it('should pass simple test', function() {
-                mockRecipe1 = recipe1;
-                expect([1, 2]).to.contain(2);
+            it('should get all recipes', (done) => {
+                chai.request(app)
+                    .get('/api/recipes')
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('Array');
+                        done();
+                    });
             });
         });
     });
 });
 
-const recipe1 = new Recipe({
-    name: 'test 1',
-    description: 'This is dish test 1',
-    ingredients: [],
-    steps: [],
-    tags: ['easy to cook'],
-    favourite: true,
-});
+const recipe1 = {
+    'name': 'test 1',
+    'description': 'This is dish test 1',
+    'ingredients': [],
+    'steps': [],
+    'tags': ['easy to cook'],
+    'favourite': true
+};
 
-const recipe2 = new Recipe({
-    name: 'test 1',
-    description: 'This is dish test 1',
-    ingredients: ['chicken'],
-    steps: [],
-    tags: [],
-    favourite: false,
-});
+const recipe2 = {
+    'name': 'test 1',
+    'description': 'This is dish test 1',
+    'ingredients': ['chicken'],
+    'steps': [],
+    'tags': [],
+    'favourite': false,
+};
 
-const recipe3 = new Recipe({
-    name: 'test 1',
-    description: 'This is dish test 1',
-    ingredients: ['chicken'],
-    steps: [],
-    tags: ['easy to cook'],
-    favourite: true,
-});
+const recipe3 = {
+    'name': 'test 1',
+    'description': 'This is dish test 1',
+    'ingredients': ['chicken'],
+    'steps': [],
+    'tags': ['easy to cook'],
+    'favourite': true,
+};

@@ -4,7 +4,8 @@
   "description": "A simple cookbook application to store some of your favourite dishes",
   "main": "server.js",
   "scripts": {
-    "test": "mocha"
+    "start": "SET NODE_ENV=dev",
+    "test": "mocha --exit"
   },
   "keywords": [
     "nodejs",
@@ -18,11 +19,13 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "config": "^3.3.2",
     "express": "^4.17.1",
     "mongoose": "^5.10.9"
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "eslint": "^7.11.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-vue": "^7.1.0",

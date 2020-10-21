@@ -1,0 +1,4 @@
+{
+     "DBHost": "mongodb://localhost:27017/cookbook_db",
+     "PORT": "8080"
+}

@@ -1,3 +1,4 @@
+const config = require('config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -16,15 +17,10 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
 
-// simple route
-app.get('/', (req, res) => {
-    res.json({message: 'Welcome to the cookbook!'});
-});
-
 require('./src/routes/RecipeRoutes')(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = config.PORT;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
@@ -32,7 +28,7 @@ app.listen(PORT, () => {
 
 const db = require('./src/models');
 db.mongoose
-    .connect(db.url, {
+    .connect(config.DBHost, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
@@ -43,3 +39,9 @@ db.mongoose
         console.log('Cannot connect to the database!', err);
         process.exit();
     });
+
+module.exports = function shutDown() {
+    db.mongoose.connection.close();
+};
+
+module.exports = app;

@@ -32,7 +32,7 @@ module.exports = (app) => {
     // Delete a Recipe with id
     router.delete('/:id', recipes.delete);
 
-    // Create a new Recipe
+    // Delete all Recipe
     router.delete('/', recipes.deleteAll);
 
     app.use('/api/recipes', router);
