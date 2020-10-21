@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('API Tests', function() {
-    this.timeout(5000);
+    this.timeout(30000);
     // before(function() {
     //     console.log('start test');
     // });

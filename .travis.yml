@@ -1,4 +1,3 @@
-os: windows
 services: 
   - mongodb
 language: node_js
