@@ -5,6 +5,7 @@ const Recipe = db.recipes;
 // Create and Save a new Recipe
 exports.create = (req, res) => {
     // Validate request
+    console.log('post received');
     if (!req.body.name) {
         res.status(400).send({message: 'Name can not be empty!'});
         return;
