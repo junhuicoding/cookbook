@@ -88,7 +88,7 @@ exports.findAllByIngredient = (req, res) => {
 // Find a single Recipe with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
-    Recipe.findById(id)
+    Recipe.findById(id, {useFindAndModify: false})
         .then((data) => {
             if (!data) {
                 res.status(404).send({message: 'Recipe with id ' + id + 'not found'});
@@ -148,7 +148,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Recipe.findByIdAndRemove(id)
+    Recipe.findByIdAndRemove(id, {useFindAndModify: false})
         .then((data) => {
             if (!data) {
                 res.status(404).send({

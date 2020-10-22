@@ -10,18 +10,18 @@ chai.should();
 chai.expect();
 
 describe('API Tests', function () {
-    beforeEach(function() {
+    beforeEach(function () {
         chai.request(app).post('/api/recipes').send(mockRecipe1).end();
         chai.request(app).post('/api/recipes').send(mockRecipe2).end();
         chai.request(app).post('/api/recipes').send(mockRecipe3).end();
     });
 
-    afterEach(function() {
+    afterEach(function () {
         // Clear database after each test is done
         chai.request(app).delete('/api/recipes').send().end();
     });
 
-    describe('Add recipe', function () {
+    describe('POST', function () {
         it('Should add recipe without error', (done) => {
             chai.request(app)
                 .post('/api/recipes')
@@ -45,7 +45,7 @@ describe('API Tests', function () {
 
     });
 
-    describe('Get ', function () {
+    describe('GET ', function () {
         it('Should get all recipes', (done) => {
             chai.request(app)
                 .get('/api/recipes')
@@ -62,14 +62,22 @@ describe('API Tests', function () {
             chai.request(app)
                 .get('/api/recipes')
                 .end((err, res) => {
-                    recipeId = res.body[1].id;
+                    recipeId = res.body[0].id;
+                    chai.request(app)
+                        .get('/api/recipes/' + String(recipeId))
+                        .end((err, res) => {
+                            res.should.have.status(200);
+                            chai.expect(String(res.body.id)).to.equal(String(recipeId));
+                            done();
+                        });
                 });
+        });
+
+        it('Should return 404 when trying to retreive by invalid id', (done) => {
             chai.request(app)
-                .get('/api/recipes/')
-                .query(String(recipeId))
+                .get('/api/recipes/111111111111111111111111')
                 .end((err, res) => {
-                    res.should.have.status(200);
-                    chai.expect(String(res.body[1].id)).to.equal(String(recipeId));
+                    res.should.have.status(404);
                     done();
                 });
         });
@@ -88,7 +96,7 @@ describe('API Tests', function () {
         it('Should get all recipes by ingredients correctly', (done) => {
             chai.request(app)
                 .get('/api/recipes/ingredient')
-                .query({ingredient: 'chicken'})
+                .query({ ingredient: 'chicken' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('Array');
@@ -100,7 +108,7 @@ describe('API Tests', function () {
         it('Should get all recipes by tag correctly', (done) => {
             chai.request(app)
                 .get('/api/recipes/tag')
-                .query({tag: 'hard to cook'})
+                .query({ tag: 'hard to cook' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('Array');
@@ -108,6 +116,64 @@ describe('API Tests', function () {
                     done();
                 });
         });
+    });
+
+    describe('PUT ', function () {
+        let recipeId;
+        let recipe;
+        let originalName;
+        it('Should edit recipe by id correctly', (done) => {
+            chai.request(app)
+                .get('/api/recipes')
+                .end((err, res) => {
+                    recipeId = res.body[0].id;
+                    recipe = res.body[0];
+                    originalName = res.body[0].name;
+                    recipe.name = 'changed name';
+                    chai.request(app)
+                        .put('/api/recipes/' + String(recipeId))
+                        .send(recipe)
+                        .end((err, res1) => {
+                            res1.should.have.status(200);
+                            chai.request(app)
+                                .get('/api/recipes/' + String(recipeId))
+                                .send(recipe)
+                                .end((err, res2) => {
+                                    res2.should.have.status(200);
+                                    chai.expect(res2.body.name).to.equal('changed name')
+                                    done();
+                                });
+                        });
+                });
+        });
+
+    });
+
+    describe('DELETE ', function () {
+        let recipeId;
+        let recipe;
+        let originalName;
+        it('Should delete recipe by id correctly', (done) => {
+            chai.request(app)
+                .get('/api/recipes')
+                .end((err, res) => {
+                    recipeId = res.body[0].id;
+                    chai.request(app)
+                        .delete('/api/recipes/' + String(recipeId))
+                        .send(recipe)
+                        .end((err, res1) => {
+                            res.should.have.status(200);
+                            chai.request(app)
+                                .get('/api/recipes/' + String(recipeId))
+                                .send(recipe)
+                                .end((err, res1) => {
+                                    res1.should.have.status(404);
+                                    done();
+                                });
+                        });
+                });
+        });
+
     });
 });
 
