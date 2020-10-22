@@ -69,7 +69,7 @@ describe('API Tests', function () {
                 .query(String(recipeId))
                 .end((err, res) => {
                     res.should.have.status(200);
-                    chai.expect(res.body[1].id).to.equal(recipeId);
+                    chai.expect(String(res.body[1].id)).to.equal(String(recipeId));
                     done();
                 });
         });
