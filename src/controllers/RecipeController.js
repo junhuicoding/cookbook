@@ -5,12 +5,10 @@ const Recipe = db.recipes;
 // Create and Save a new Recipe
 exports.create = (req, res) => {
     // Validate request
-    console.log('post received');
     if (!req.body.name) {
         res.status(400).send({message: 'Name can not be empty!'});
         return;
     }
-    console.log('post ok');
 
     // Create a Recipe
     const recipe = new Recipe({
@@ -21,13 +19,11 @@ exports.create = (req, res) => {
         tags: req.body.tags,
         favourite: req.body.favourite ? req.body.favourite : false,
     });
-    console.log('recipe created');
 
     // Save Recipe in the database
     recipe
         .save(recipe)
         .then((data) => {
-            console.log('save ok');
             res.send(data);
         })
         .catch((err) => {
@@ -92,7 +88,6 @@ exports.findAllByIngredient = (req, res) => {
 // Find a single Recipe with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
-
     Recipe.findById(id)
         .then((data) => {
             if (!data) {
@@ -100,6 +95,7 @@ exports.findOne = (req, res) => {
             } else res.send(data);
         })
         .catch((err) => {
+            console.log();
             res.status(500).send({message: 'Error retrieving Recipe with id=' + id});
         });
 };
