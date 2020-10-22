@@ -9,13 +9,14 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('API Tests', function() {
-    before(function() {
-        console.log('start test');
-    });
+    this.timeout(30000);
+    // before(function() {
+    //     console.log('start test');
+    // });
 
-    after(function() {
-        // app.shutDown();
-    });
+    // after(function() {
+    //     // app.shutDown();
+    // });
 
     describe('Add recipe', function() {
         it('should add recipe', (done) => {
@@ -27,11 +28,13 @@ describe('API Tests', function() {
                 'tags': ['easy to cook'],
                 'favourite': true
             };
+            console.log('start post');
             chai.request(app)
                 .post('/api/recipes')
                 .send(mockRecipe1)
                 .end((err, res) => {
                     res.should.have.status(200);
+                    console.log('post success');
                     done();
                 });
         });
