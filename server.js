@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 require('./src/routes/RecipeRoutes.js')(app);
 
 // set port, listen for requests
-const PORT = config.PORT;
+const PORT = 8888;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
@@ -28,7 +28,7 @@ app.listen(PORT, () => {
 
 const db = require('./src/models/index.js');
 db.mongoose
-    .connect(config.DBHost, {
+    .connect("mongodb://localhost:27017/cookbook_db", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
