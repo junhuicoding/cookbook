@@ -75,7 +75,7 @@ describe('API Tests', function () {
 
         it('Should return 404 when trying to retreive by invalid id', (done) => {
             chai.request(app)
-                .get('/api/recipes/111111111111111111111111')
+                .get('/api/recipes/' + invalidId)
                 .end((err, res) => {
                     res.should.have.status(404);
                     done();
@@ -149,7 +149,7 @@ describe('API Tests', function () {
 
         it('Should return 404 when trying to edit a recipe with invalid id', (done) => {
             chai.request(app)
-                .put('/api/recipes/111111111111111111111111')
+                .put('/api/recipes/' + invalidId)
                 .send(mockRecipe1)
                 .end((err, res) => {
                     res.should.have.status(404);
@@ -186,7 +186,7 @@ describe('API Tests', function () {
 
         it('Should return 404 when trying to delete a recipe with invalid id', (done) => {
             chai.request(app)
-                .delete('/api/recipes/111111111111111111111111')
+                .delete('/api/recipes/' + invalidId)
                 .end((err, res) => {
                     res.should.have.status(404);
                     done();
@@ -220,3 +220,5 @@ const mockRecipe3 = {
     'tags': ['hard to cook'],
     'favourite': true
 };
+
+const invalidId = '111111111111111111111111';
