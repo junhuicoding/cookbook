@@ -34,17 +34,17 @@ The backend is built with express and mongoose, using node js and Mongo DB as a 
 
 Data structure of a recipe:
 
-•	name: String,
+•	`name: String`
 
-•	description: String
+•	`description: String`
 
-•	ingredients: [String]
+•	`ingredients: [String]`
 
-•	steps: [String]
+•	`steps: [String]`
 
-•	tags: [String]
+•	`tags: [String]`
 
-•	favourite: Boolean
+•	`favourite: Boolean`
 
 ## API Documentation
 
