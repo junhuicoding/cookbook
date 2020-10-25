@@ -57,6 +57,39 @@ describe('API Tests', function () {
                 });
         });
 
+        it('Should get recipes by name (searching "3" in name)', (done) => {
+            chai.request(app)
+                .get('/api/recipes?name=3')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('Array');
+                    chai.expect(res.body).to.have.lengthOf(1);
+                    done();
+                });
+        });
+
+        it('Should get recipes by name (search for "test" in name)', (done) => {
+            chai.request(app)
+                .get('/api/recipes?name=test')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('Array');
+                    chai.expect(res.body).to.have.lengthOf(3);
+                    done();
+                });
+        });
+
+        it('Should get recipes by name (search for "non-existent" in name)', (done) => {
+            chai.request(app)
+                .get('/api/recipes?name=doesnotexist')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('Array');
+                    chai.expect(res.body).to.have.lengthOf(0);
+                    done();
+                });
+        });
+
         it('Should get 1 recipe by id correctly', (done) => {
             let recipeId;
             chai.request(app)
@@ -121,7 +154,6 @@ describe('API Tests', function () {
     describe('PUT ', function () {
         let recipeId;
         let recipe;
-        let originalName;
         it('Should edit recipe by id correctly', (done) => {
             chai.request(app)
                 .get('/api/recipes')
@@ -190,6 +222,29 @@ describe('API Tests', function () {
                 .end((err, res) => {
                     res.should.have.status(404);
                     done();
+                });
+        });
+
+        it('Should delete all recipes', (done) => {
+            chai.request(app)
+                .get('/api/recipes')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('Array');
+                    chai.expect(res.body).to.have.lengthOf(3);
+                    chai.request(app)
+                        .delete('/api/recipes/')
+                        .end((err, res1) => {
+                            res1.should.have.status(200);
+                            chai.request(app)
+                                .get('/api/recipes/')
+                                .end((err, res2) => {
+                                    res2.should.have.status(200);
+                                    res2.body.should.be.a('Array');
+                                    chai.expect(res2.body).to.have.lengthOf(0);
+                                    done();
+                                });
+                        });
                 });
         });
 
