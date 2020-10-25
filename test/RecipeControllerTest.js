@@ -147,6 +147,16 @@ describe('API Tests', function () {
                 });
         });
 
+        it('Should return 404 when trying to edit a recipe with invalid id', (done) => {
+            chai.request(app)
+                .put('/api/recipes/111111111111111111111111')
+                .send(mockRecipe1)
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    done();
+                });
+        });
+
     });
 
     describe('DELETE ', function () {
@@ -171,6 +181,15 @@ describe('API Tests', function () {
                                     done();
                                 });
                         });
+                });
+        });
+
+        it('Should return 404 when trying to delete a recipe with invalid id', (done) => {
+            chai.request(app)
+                .delete('/api/recipes/111111111111111111111111')
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    done();
                 });
         });
 

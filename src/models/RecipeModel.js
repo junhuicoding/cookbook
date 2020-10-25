@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-invalid-this */
 module.exports = (mongoose) => {
     const schema = new mongoose.Schema(
         {
@@ -24,4 +22,3 @@ module.exports = (mongoose) => {
 
     return Recipe;
 };
-

@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "7a8ff2b7-7887-429c-9db9-a23071b084cc",
+		"name": "Cookbook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Recipe",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Dish 6\",\r\n    \"description\": \"Test dish\",\r\n    \"ingredients\": [\"chicken\"],\r\n    \"steps\": [],\r\n    \"tags\": [],\r\n    \"favourite\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/recipes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/recipes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get One Recipe by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/recipes/5f8ee41b7b6e9e4950b97f76",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recipes",
+						"5f8ee41b7b6e9e4950b97f76"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipes by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/recipes?name=dish2w",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recipes"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dish2w"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipes by tag",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/recipes/tag?tag=chicken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recipes",
+						"tag"
+					],
+					"query": [
+						{
+							"key": "tag",
+							"value": "chicken"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipes by ingredient",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/recipes/ingredient?ingredient=chicken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recipes",
+						"ingredient"
+					],
+					"query": [
+						{
+							"key": "ingredient",
+							"value": "chicken"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all favourited Recipes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/recipes/favourite",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recipes",
+						"favourite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Recipe",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "id",
+						"type": "text",
+						"value": "5f794ca2cc699b6ecce71cfe"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ingredients\": [],\r\n    \"steps\": [],\r\n    \"tags\": [],\r\n    \"name\": \"Dish 5\",\r\n    \"description\": \"Test dish 222\",\r\n    \"favourite\" : 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/recipes/5f8ef0447b13417f54effc6f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recipes",
+						"5f8ef0447b13417f54effc6f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Recipe",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "5f794ca2cc699b6ecce71cfe",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/recipes/5f8ef0447b13417f54effc6f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recipes",
+						"5f8ef0447b13417f54effc6f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Recipe Copy",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "5f794ca2cc699b6ecce71cfe",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/recipes/5f8ef0447b13417f54effc6f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recipes",
+						"5f8ef0447b13417f54effc6f"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
