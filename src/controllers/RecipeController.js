@@ -6,7 +6,7 @@ const Recipe = db.recipes;
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.name) {
-        res.status(400).send({message: 'Name can not be empty!'});
+        res.status(400).send({message: 'Name cannot be empty!'});
         return;
     }
 
@@ -103,7 +103,7 @@ exports.findOne = (req, res) => {
 // Update a Recipe by the id in the request
 exports.update = (req, res) => {
     if (!req.body) {
-        return res.status(400).send({message: 'Data to update can not be empty!'});
+        return res.status(400).send({message: 'Data to update cannot be empty!'});
     }
 
     const id = req.params.id;
