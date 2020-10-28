@@ -1,5 +1,6 @@
 # Cookbook
 [![Build Status](https://travis-ci.com/junhuicoding/cookbook.svg?branch=master)](https://travis-ci.com/junhuicoding/cookbook)
+Travis CI is integrated with this repository, and only passing builds are allowed to be merged to `master`. To contribute to this repository, please create an `issue` first.
 
 ## Quick Setup and Usage:
 By default, the backend will run on localhost:8080 and the frontend on localhost:3000.
